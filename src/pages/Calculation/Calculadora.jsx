@@ -1,5 +1,11 @@
-import React from 'react';
+import React  from 'react';
 import './style.css'
+import Resultado from '../../components/Desplay/Desplay'
+import Button from '../../components/BottonNumber/Button'
+import ButtonA from '../../components/ButtonAction/ButtonA';
+import ButtonF from '../../components/ButtonFunction/ButtonF';
+import ButtonZero from '../../components/ButtonZero/Zero'
+
 
 class Calculadora extends React.Component {
   constructor(props) {
@@ -8,13 +14,15 @@ class Calculadora extends React.Component {
       display: '0',
       total: null,
       operador: null,
-      aguardaNovoNumero: false
+      aguardaNovoNumero: false,
     };
+    
   }
-
+  
+  
   digitoInput = (digito) => {
     const { display, aguardaNovoNumero } = this.state;
-
+    
     if (aguardaNovoNumero) {
       this.setState({
         display: String(digito),
@@ -26,10 +34,10 @@ class Calculadora extends React.Component {
       });
     }
   };
-
+  
   operadorInput = (novoOperador) => {
     const { display, total, operador} = this.state;
-
+    
     if (total === null) {
       this.setState({
         total: parseFloat(display),
@@ -46,26 +54,26 @@ class Calculadora extends React.Component {
       });
     }
   };
-
+  
   calcular = (num1, num2, operacao) => {
-
+    
     switch (operacao) {
       case '+':
-         return  num1 + num2 ;
+      return  num1 + num2 ;
       case '-':
-        return num1 - num2;
+      return num1 - num2;
       case 'x':
-        return num1 * num2;
+      return num1 * num2;
       case '/':
-        return num1 / num2;
+      return num1 / num2;
       default:
-        return num2;
+      return num2;
     }
   };
-
+  
   decimalInput = () => {
     const { display, aguardaNovoNumero } = this.state;
-
+    
     if (aguardaNovoNumero) {
       this.setState({
         display: '.',
@@ -78,7 +86,7 @@ class Calculadora extends React.Component {
       });
     }
   };
-
+  
   Limpar = () => {
     this.setState({
       display: '0',
@@ -87,59 +95,59 @@ class Calculadora extends React.Component {
       aguardaNovoNumero: false
     });
   };
-
+  
   render() {
     const { display } = this.state;
-
+    
     return (
+      <>
+      
       <div className='calculadora'>
-        <div className='resultado'>{display}</div>
-        
-       <div className='container'>
-        <button className='limpar' onClick={this.Limpar}>AC</button>
-       <button className='limpar'>+/-</button>
-        <button className='limpar' >%</button>
-        <button className='operador' onClick={() => this.operadorInput('/')}>/</button>
-       </div>
-        
-        <div className='container'>
-
-        <button className='numero' onClick={() => this.digitoInput(7)}>7</button>
-        <button className='numero'onClick={() => this.digitoInput(8)}>8</button>
-        <button className='numero' onClick={() => this.digitoInput(9)}>9</button>
-        <button className='operador' onClick={() => this.operadorInput('x')}>x</button>
-       </div>
-        
-        
-        <div className='container'>
-
-        <button className='numero' onClick={() => this.digitoInput(4)}>4</button>
-        <button className='numero' onClick={() => this.digitoInput(5)}>5</button>
-        <button className='numero' onClick={() => this.digitoInput(6)}>6</button>
-        <button className='operador'onClick={() => this.operadorInput('-')}>-</button>
-       </div>
-
-        
-        <div className='container'>
-
-        <button className='numero' onClick={() => this.digitoInput(1)}>1</button>
-        <button className='numero' onClick={() => this.digitoInput(2)}>2</button>
-        <button className='numero' onClick={() => this.digitoInput(3)}>3</button>
-        <button  className='operador' onClick={() => this.operadorInput('+')}>+</button>
-        </div>
-
-        
-        
-        <div className='container'>
-
-        <button className='numero-zero' onClick={() => this.digitoInput(0)}>0</button>
-        <button className='numero' onClick={this.decimalInput}>.</button>
-        <button  className='operador' onClick={() => this.operadorInput(this)}>=</button>
-        </div>
-       </div>
-     );
-   }
-}
-
-export default Calculadora;
-
+      <Resultado conteudo={display}/>
+      
+      <div className='container'>
+      
+      <ButtonA func={this.Limpar} sinal={'AC'} />
+      <ButtonA sinal={'+/-'} />
+      <ButtonA sinal={'%'} />
+      <ButtonF operador={() => this.operadorInput('/')} sinal={'/'} />
+      </div>
+      
+      <div className='container'>
+      <Button inputDigt={()=>{this.digitoInput(7)}} number={'7'} />
+      <Button inputDigt={()=>{this.digitoInput(8)}} number={'8'} />
+      <Button inputDigt={()=>{this.digitoInput(9)}} number={'9'} />
+      <ButtonF operador={() => this.operadorInput('x')} sinal={'x'} />
+      </div>
+      
+      <div className='container'>
+      <Button inputDigt={()=>{this.digitoInput(4)}} number={'4'} />
+      <Button inputDigt={()=>{this.digitoInput(5)}} number={'5'} />
+      <Button inputDigt={()=>{this.digitoInput(6)}} number={'6'} />
+      <ButtonF operador={() => this.operadorInput('-')} sinal={'-'} />
+      </div>
+      
+      <div className='container'>
+      <Button inputDigt={()=>{this.digitoInput(1)}} number={'1'} />
+      <Button inputDigt={()=>{this.digitoInput(2)}} number={'2'} />
+      <Button inputDigt={()=>{this.digitoInput(3)}} number={'3'} />
+      
+      <ButtonF operador={() => this.operadorInput('+')} sinal={'+'} />
+      </div>
+      
+      
+      
+      <div className='container'>
+      <ButtonZero inputDigt={() => this.digitoInput(0)} number={0}/>
+      <Button inputDigt={this.decimalInput} number={'.'} />
+      <ButtonF operador={() => this.operadorInput(this)} sinal={'='} />
+      </div>
+      </div>
+      </>
+      );
+    }
+  }
+  
+  export default Calculadora;
+  
+  

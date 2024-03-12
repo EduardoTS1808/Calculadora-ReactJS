@@ -1,0 +1,15 @@
+.numero-zero{
+    width: 180px;
+    height: 80px;
+    padding: 25px 30px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    color: #FFF;
+    background: rgba(255,255,255,.1);
+    font-size: 24px;
+    font-weight: 800;
+}
+.numero-zero:hover{
+    background: rgba(255,255,255,.4);
+}
